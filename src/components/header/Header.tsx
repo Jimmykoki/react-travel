@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Header.module.css';
+import logo from '../../assets/logo.svg';
 import {
   Input,
   Layout,
@@ -10,7 +11,7 @@ import {
   Dropdown,
 } from 'antd';
 import { GlobalOutlined } from '@ant-design/icons';
-import logo from '../../assets/logo.svg';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 const items: MenuProps['items'] = [
   {
@@ -46,6 +47,10 @@ const naviItems: MenuProps['items'] = [
 ];
 
 export const Header: React.FC = () => {
+  const navigate = useNavigate(); // useNavigate is a hook that returns a function to navigate to a new location
+  const location = useLocation(); // useLocation is a hook that returns the location object that represents the current URL
+  const params = useParams(); // useParams is a hook that returns an object of key/value pairs of URL parameters
+
   return (
     <div className={styles['app-header']}>
       {/** Header */}
@@ -64,21 +69,30 @@ export const Header: React.FC = () => {
             Language
           </Dropdown.Button>
           <Button.Group className={styles['button-group']} size="middle">
-            <Button type="primary">Sign up</Button>
-            <Button style={{ marginLeft: 10 }}>Sign in</Button>
+            <Button onClick={() => navigate('/register')} type="primary">
+              Sign up
+            </Button>
+            <Button
+              onClick={() => navigate('/signin')}
+              style={{ marginLeft: 10 }}
+            >
+              Sign in
+            </Button>
           </Button.Group>
         </div>
       </div>
 
       <Layout.Header className={styles['main-header']}>
-        <img src={logo} alt="" className={styles['App-logo']} />
-        <Typography.Title level={3} className={styles.title}>
-          React Travel
-        </Typography.Title>
-        <Input.Search
-          placeholder="Search..."
-          className={styles['search-input']}
-        />
+        <span onClick={() => navigate('/')}>
+          <img src={logo} alt="" className={styles['App-logo']} />
+          <Typography.Title level={3} className={styles.title}>
+            React Travel
+          </Typography.Title>
+          <Input.Search
+            placeholder="Search..."
+            className={styles['search-input']}
+          />
+        </span>
       </Layout.Header>
 
       <Menu
