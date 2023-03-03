@@ -1,4 +1,8 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavigateFunction } from 'react-router-dom';
+
+export interface RouteComponentProps {
+  navigate: NavigateFunction;
+}
 
 export const withRouter = (Component) => {
   const Wrapper = (props) => {

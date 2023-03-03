@@ -10,13 +10,16 @@ import {
 } from '../../components';
 import { Row, Col, Typography } from 'antd';
 import { productList1, productList2, productList3 } from './mockup';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
 import sideImage from '../../assets/images/side-image.png';
 import sideImage2 from '../../assets/images/side-image-2.png';
 import sideImage3 from '../../assets/images/side-image-3.png';
 
-export class HomePage extends React.Component {
+class HomePageComponent extends React.Component<WithTranslation> {
   render(): React.ReactNode {
+    const { t } = this.props;
+
     return (
       <>
         <Header />
@@ -33,7 +36,7 @@ export class HomePage extends React.Component {
           <ProductCollection
             title={
               <Typography.Title level={3} type="warning">
-                Popular Stuff
+                {t('home_page.hot_recommended')}
               </Typography.Title>
             }
             sideImage={sideImage}
@@ -42,7 +45,7 @@ export class HomePage extends React.Component {
           <ProductCollection
             title={
               <Typography.Title level={3} type="danger">
-                New Items
+                {t('home_page.new_arrival')}
               </Typography.Title>
             }
             sideImage={sideImage2}
@@ -51,7 +54,7 @@ export class HomePage extends React.Component {
           <ProductCollection
             title={
               <Typography.Title level={3} type="success">
-                Inboard tour
+                {t('home_page.domestic_travel')}
               </Typography.Title>
             }
             sideImage={sideImage3}
@@ -65,3 +68,5 @@ export class HomePage extends React.Component {
     );
   }
 }
+
+export const HomePage = withTranslation()(HomePageComponent);
