@@ -21,6 +21,7 @@ import { Dispatch } from 'redux';
 
 // 从redux中取出state
 // 输出从组件绑定的数据
+// 管理state的状态
 const mapStateToProps = (state: RootState) => {
   return {
     language: state.language,
@@ -28,6 +29,7 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
+//两种映射状态 操作state的方法
 const mapDispatchToProps = (dispatch: Dispatch) => {
   // 返回类型是一个对象，每一个字段都是dispatch的处理函数action
   return {
