@@ -11,7 +11,7 @@ import {
   Dropdown,
 } from 'antd';
 import { GlobalOutlined } from '@ant-design/icons';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from '../../redux/hook';
 import { useDispatch } from 'react-redux';
 import { changeLanguageActionsCreator } from '../../redux/language/languageActions';
@@ -19,12 +19,12 @@ import { useTranslation } from 'react-i18next';
 
 export const Header: React.FC = () => {
   const navigate = useNavigate(); // useNavigate is a hook that returns a function to navigate to a new location
-  const location = useLocation(); // useLocation is a hook that returns the location object that represents the current URL
-  const params = useParams(); // useParams is a hook that returns an object of key/value pairs of URL parameters
+  // const location = useLocation();  useLocation is a hook that returns the location object that represents the current URL
+  // const params = useParams();  useParams is a hook that returns an object of key/value pairs of URL parameters
 
   // component connecting with store will result in it's unreusable
-  const language = useSelector((state) => state.language);
-  const languageList = useSelector((state) => state.languageList);
+  const language = useSelector((state) => state.language.language);
+  const languageList = useSelector((state) => state.language.languageList);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 

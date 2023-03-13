@@ -10,49 +10,40 @@ import {
 } from '../../components';
 import { Row, Col, Typography, Spin } from 'antd';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import axios from 'axios';
-
+import { connect } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { getRecommendRoductsListActionCreator } from '../../redux/recommendProduts/recommendProductsActions';
 import sideImage from '../../assets/images/side-image.png';
 import sideImage2 from '../../assets/images/side-image-2.png';
 import sideImage3 from '../../assets/images/side-image-3.png';
 
-interface State {
-  loading: boolean;
-  error: string | null;
-  productList: any[];
-}
+const mapStateToProps = (state: RootState) => {
+  return {
+    loading: state.recommendProduts.loading,
+    error: state.recommendProduts.error,
+    productList: state.recommendProduts.productList,
+  };
+};
 
-class HomePageComponent extends React.Component<WithTranslation, State> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      error: null,
-      productList: [],
-    };
-  }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getRecommendProductsList: () => {
+      dispatch(getRecommendRoductsListActionCreator());
+    },
+  };
+};
 
+type PropsType = WithTranslation &
+  ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
+
+class HomePageComponent extends React.Component<PropsType> {
   async componentDidMount() {
-    try {
-      // waiting GET request
-      const { data } = await axios.get(
-        'http://123.56.149.216:8089/api/productCollections'
-      ); // return a promise
-      this.setState({
-        loading: false,
-        error: null,
-        productList: data,
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        this.setState({ error: error.message, loading: false });
-      }
-    }
+    this.props.getRecommendProductsList();
   }
 
   render(): React.ReactNode {
-    const { t } = this.props;
-    const { productList, loading, error } = this.state;
+    const { t, productList, loading, error } = this.props;
 
     if (loading) {
       return (
@@ -79,10 +70,10 @@ class HomePageComponent extends React.Component<WithTranslation, State> {
         {/* Content */}
         <div className={styles['page-content']}>
           <Row style={{ marginTop: 20 }}>
-            <Col span={5}>
+            <Col span={6}>
               <SideMenu />
             </Col>
-            <Col span={19}>
+            <Col span={18}>
               <Carousel />
             </Col>
           </Row>
@@ -122,4 +113,7 @@ class HomePageComponent extends React.Component<WithTranslation, State> {
   }
 }
 
-export const HomePage = withTranslation()(HomePageComponent);
+export const HomePage = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withTranslation()(HomePageComponent));

@@ -13,7 +13,7 @@ import {
 import { GlobalOutlined } from '@ant-design/icons';
 //import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { withRouter, RouteComponentProps } from '../../helpers/withRouter';
-import store, { RootState } from '../../redux/store';
+import { RootState } from '../../redux/store';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { changeLanguageActionsCreator } from '../../redux/language/languageActions';
 import { connect } from 'react-redux';
@@ -24,8 +24,8 @@ import { Dispatch } from 'redux';
 // 管理state的状态
 const mapStateToProps = (state: RootState) => {
   return {
-    language: state.language,
-    languageList: state.languageList,
+    language: state.language.language,
+    languageList: state.language.languageList,
   };
 };
 
