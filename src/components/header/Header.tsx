@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Header.module.css';
 import logo from '../../assets/logo.svg';
 import {
@@ -16,6 +16,12 @@ import { useSelector } from '../../redux/hook';
 import { useDispatch } from 'react-redux';
 import { changeLanguageActionsCreator } from '../../redux/language/languageActions';
 import { useTranslation } from 'react-i18next';
+import jwt_decode, { JwtPayload as DefaultJwtPayload } from 'jwt-decode';
+import { userSlice } from '../../redux/user/slice';
+
+interface JwtPayload extends DefaultJwtPayload {
+  username: string;
+}
 
 export const Header: React.FC = () => {
   const navigate = useNavigate(); // useNavigate is a hook that returns a function to navigate to a new location
@@ -27,6 +33,21 @@ export const Header: React.FC = () => {
   const languageList = useSelector((state) => state.language.languageList);
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const jwt = useSelector((state) => state.user.token);
+  const [username, setUsername] = useState('');
+
+  const shoppingCartItems = useSelector((state) => state.shoppingCart.items);
+  const shoppingCartLoading = useSelector(
+    (state) => state.shoppingCart.loading
+  );
+
+  useEffect(() => {
+    if (jwt) {
+      const token = jwt_decode<JwtPayload>(jwt);
+      setUsername(token.username);
+    }
+  }, [jwt]);
 
   const items: MenuProps['items'] = languageList.map((l) => {
     return { key: l.code, label: l.name };
@@ -57,6 +78,11 @@ export const Header: React.FC = () => {
     }
   };
 
+  const onLogout = () => {
+    dispatch(userSlice.actions.logOut());
+    navigate('/');
+  };
+
   return (
     <div className={styles['app-header']}>
       {/** Header */}
@@ -74,17 +100,35 @@ export const Header: React.FC = () => {
           >
             {language === 'zh' ? '中文' : 'English'}
           </Dropdown.Button>
-          <Button.Group className={styles['button-group']} size="middle">
-            <Button onClick={() => navigate('/register')} type="primary">
-              {t('header.register')}
-            </Button>
-            <Button
-              onClick={() => navigate('/signin')}
-              style={{ marginLeft: 10 }}
-            >
-              {t('header.signin')}
-            </Button>
-          </Button.Group>
+          {jwt ? (
+            <Button.Group className={styles['button-group']} size="middle">
+              <span>
+                {t('header.welcome')}
+                <Typography.Text strong> {username}</Typography.Text>
+              </span>
+              <Button
+                loading={shoppingCartLoading}
+                onClick={() => {
+                  navigate('/shoppingCart');
+                }}
+              >
+                {t('header.shoppingCart')}({shoppingCartItems.length})
+              </Button>
+              <Button onClick={onLogout}>{t('header.signOut')}</Button>
+            </Button.Group>
+          ) : (
+            <Button.Group className={styles['button-group']} size="middle">
+              <Button onClick={() => navigate('/register')} type="primary">
+                {t('header.register')}
+              </Button>
+              <Button
+                onClick={() => navigate('/signin')}
+                style={{ marginLeft: 10 }}
+              >
+                {t('header.signin')}
+              </Button>
+            </Button.Group>
+          )}
         </div>
       </div>
 
@@ -97,6 +141,7 @@ export const Header: React.FC = () => {
           <Input.Search
             placeholder="Search..."
             className={styles['search-input']}
+            onSearch={(keyword) => navigate('/search/' + keyword)}
           />
         </span>
       </Layout.Header>
