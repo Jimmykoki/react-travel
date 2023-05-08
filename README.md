@@ -4,9 +4,10 @@
 
 The tour eCommerce platform is design to help users to view and book tour groups they’er interested in, it contains mainpage, product detail page, shopping cart page and sign-in/sign-up
 
-![Image text](src/assets/images/sign-up.png)
-
 ![Image text](src/assets/images/mainpage.png)
+Mainpage
+![Image text](src/assets/images/sign-up.png)
+Sign-up page
 
 ## Available Scripts
 
