@@ -1,15 +1,21 @@
-# Getting Started with Create React App
+# Welecome to the React-travel platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Preview
 
-## Available Scripts
+The tour eCommerce platform is design to help users to view and book tour groups they’er interested in, it contains mainpage, product detail page, shopping cart page and sign-in/sign-up
+
+![截屏2023-05-08 上午12.30.11.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f735a238-239a-4bf9-9fc6-e281b016ca66/%E6%88%AA%E5%B1%8F2023-05-08_%E4%B8%8A%E5%8D%8812.30.11.png)
+
+![截屏2023-05-08 上午12.38.08.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/714e4ee1-e21b-4791-abf4-dd96a749de4e/%E6%88%AA%E5%B1%8F2023-05-08_%E4%B8%8A%E5%8D%8812.38.08.png)
+
+### Available Scripts
 
 In the project directory, you can run:
 
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000/) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
@@ -39,7 +45,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+### Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
