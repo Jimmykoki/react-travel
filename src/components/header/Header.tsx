@@ -134,7 +134,7 @@ export const Header: React.FC = () => {
 
       <Layout.Header className={styles['main-header']}>
         <span onClick={() => navigate('/')}>
-          <img src={logo} alt="" className={styles['App-logo']} />
+          <img src={logo} alt="logo" className={styles['App-logo']} />
           <Typography.Title level={3} className={styles.title}>
             {t('header.title')}
           </Typography.Title>
